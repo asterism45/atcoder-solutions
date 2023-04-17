@@ -47,5 +47,6 @@ int main() {
   cin >> W >> H;
   ll res = modpow(W + H - 2) * modpowinv(H - 1) % MOD * modpowinv(W - 1) % MOD;
   cout << res << endl;
+  cout << res;
   return 0;
 }
