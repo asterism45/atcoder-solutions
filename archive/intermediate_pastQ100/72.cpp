@@ -19,6 +19,33 @@ ll gcd(ll a, ll b) {
   }
 }
 
+ll modpow(ll x) {
+  ll ret = 1;
+  rep(i, 1, x + 1) {
+    ret = ret * i % MOD;
+  }
+  return ret;
+}
+
+ll modinv(ll x) {
+  ll ret = 1, n = MOD - 2;
+  while (n > 0) {
+    if (n & 1) ret = ret * x % MOD;
+    x = x * x % MOD;
+    n >>= 1;
+  }
+  return ret;
+}
+ll modpowinv(ll x) {
+  ll ret = 1;
+  rep(i, 1, x + 1) {
+    ret = ret * modinv(i) % MOD;
+  }
+  return ret;
+}
 int main() {
+  cin >> W >> H;
+  ll res = modpow(W + H - 2) * modpowinv(H - 1) % MOD * modpowinv(W - 1) % MOD;
+  cout << res << endl;
   return 0;
 }
