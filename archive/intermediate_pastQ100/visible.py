@@ -30,5 +30,5 @@ with open("README.md", "w", encoding='utf-8') as f:
             index = i + j
             if j == 1:
                 f.write("|")
-            f.write(f" {index:3} | {'✓' if flags[index - 1] else ' '} |")
+            f.write(f" {index:3} | {'✓' if flags[index - 1] else '&nbsp;'} |")
         f.write("\n")
