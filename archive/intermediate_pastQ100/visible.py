@@ -17,13 +17,15 @@ for filename in os.listdir(directory):
         continue
 
 # フラグを10x10配列でMarkdownファイルに保存
-with open("progress.md", "w", encoding='utf-8') as f:
-    f.write("|  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |  #  | Status |\n")
-    f.write("|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|:---:|:------:|\n")
+with open("README.md", "w", encoding='utf-8') as f:
+    f.write("競技プログラミングのアーカイブ\n\n")
+    f.write("## 過去問精選100問 進行状況\n\n")
+    f.write("|   #   | Status |   #   | Status |   #   | Status |   #   | Status |   #   | Status |\n")
+    f.write("|:-----:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:------:|\n")
     
     for i, flag in enumerate(flags, 1):
         if i % 10 == 1:
             f.write("|")
-        f.write(f" {i}  | {'✓' if flag else '✗'} |")
+        f.write(f" {i:3} | {'✓' if flag else ' '} |")
         if i % 10 == 0:
             f.write("\n")
