@@ -22,7 +22,7 @@ for filename in os.listdir(directory):
 with open("README.md", "w", encoding='utf-8') as f:
     f.write("競技プログラミングのアーカイブ\n\n")
     f.write("## 過去問精選100問 進行状況\n\n")
-    f.write("|   #   | Status |   #   | Status |   #   | Status |   #   | Status |   #   | Status |\n")
+    f.write("|       | Status |       | Status |       | Status |       | Status |       | Status |\n")
     f.write("|:-----:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:------:|\n")
     
     for i in range(0, 100, 10):
