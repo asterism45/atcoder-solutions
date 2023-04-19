@@ -31,4 +31,7 @@ with open("README.md", "w", encoding='utf-8') as f:
             if j == 1:
                 f.write("|")
             f.write(f" {index:3} | {'✓' if flags[index - 1] else '&nbsp;'} |")
-        f.write("\n")
+        if i == 90:
+            f.write(" &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; | &nbsp; |\n")
+        else:
+            f.write("\n")
