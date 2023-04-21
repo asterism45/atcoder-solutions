@@ -3,7 +3,7 @@
 #define INF ((1LL << 62) - (1LL << 31)) /*オーバーフローしない程度に大きい数*/
 #define pb push_back
 #define mp make_pair
-#define MOD 1000000
+#define MOD 100000
 using namespace std;
 using ll = long long;
 using vll = vector<ll>;
@@ -32,7 +32,7 @@ int main() {
   ll cur = a[0], res = s[cur] % MOD;
   rep(i, 1, M) {
     ll nx = cur + a[i];
-    res = res + abs(s[nx] - s[cur]) % MOD;
+    res = (res + abs(s[nx] - s[cur])) % MOD;
     cur = nx;
   }
   cout << res << endl;
