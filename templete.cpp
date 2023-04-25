@@ -4,6 +4,7 @@
 #define pb push_back
 #define mp make_pair
 #define MOD 1000000007
+#define all(a) (a).begin(), (a).end()
 using namespace std;
 using ll = long long;
 using vll = vector<ll>;
