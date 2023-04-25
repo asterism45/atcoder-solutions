@@ -1,8 +1,9 @@
 #!/bin/bash
 
 problem_name=$1
+problem_name=${problem_name,,}
 problem_name=${problem_name##*/}
-problem_name=${problem_name//Atcoder\\ABC\\/}
+problem_name=${problem_name//atcoder\\abc\\/}
 test_dir=AtCoder/onlinejudge/test/${problem_name}
 base_url=${problem_name%_*}
 code_path=$2
