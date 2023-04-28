@@ -20,6 +20,18 @@ ll gcd(ll a, ll b) {
 }
 
 int main() {
-  cin >> H >> W;
+  cin >> N;
+  ll ok = N, ng = 0;
+  while (ok - ng > 1) {
+    ll mid = (ok + ng) / 2;
+    cout << "?" << mid << endl;
+    ll ans;
+    cin >> ans;
+    if (ans)
+      ok = mid;
+    else
+      ng = mid;
+  }
+  cout << "!" << ng << endl;
   return 0;
 }
