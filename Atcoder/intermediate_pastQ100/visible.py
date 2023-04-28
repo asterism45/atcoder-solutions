@@ -2,7 +2,7 @@ import os
 import re
 
 # ディレクトリを指定
-directory = "C:/programming/atcoder/archive/intermediate_pastQ100"
+directory = "C:/programming/atcoder/Atcoder/intermediate_pastQ100"
 
 # 1から100までのフラグを初期化
 flags = [False] * 100
