@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
+#include <atcoder/all>
 using namespace std;
+using namespace atcoder;
 #define rep(i, l, r) for (ll i = (l); i < (r); i++)
 #define INF ((1LL << 62) - (1LL << 31))
 #define pb push_back
@@ -19,49 +21,22 @@ ll gcd(ll a, ll b) {
     return gcd(b, a % b);
   }
 }
-class Unionfind {
- public:
-  vll node;
-  Unionfind(ll n) {
-    node.resize(n);
-    rep(i, 0, n)
-        node[i] = i;
-  }
-  ll root(ll p) {
-    if (node[p] == p) return p;
-    return node[p] = root(node[p]);
-  }
-  void unite(ll x, ll y) {
-    if (root(x) == root(y)) return;
-    ll rx = root(x), ry = root(y);
-    node[rx] = ry;
-  }
-  bool same(ll x, ll y) {
-    if (root(x) == root(y))
-      return true;
-    else
-      return false;
-  }
-};
 
 int main() {
+  int N;
   cin >> N;
-  Unionfind uf(N);
-  vll A(N);
-  ll res = 0;
-  rep(i, 0, N) {
-    cin >> A[i];
-    if (uf.same(i, --A[i])) {
-      ll st = i;
-      ll nx = A[i];
-      res++;
-      while (st != nx) {
-        res++;
-        nx = A[nx];
-      }
-    } else
-      uf.unite(i, A[i]);
+  scc_graph g(N);
+  int ans = 0;
+  for (int i = 0; i < N; ++i) {
+    int A;
+    cin >> A, --A;
+    g.add_edge(i, A);
+    if (i == A) { ++ans; }
+    rep(i, 0, N) cin >> A[i] >> B[i];
   }
-  cout << res << endl;
+  for (auto c : g.scc()) {
+    if (c.size() >= 2) ans += c.size();
+  }
+  cout << ans << endl;
   return 0;
 }
