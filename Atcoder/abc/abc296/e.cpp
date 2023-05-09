@@ -26,17 +26,20 @@ int main() {
   int N;
   cin >> N;
   scc_graph g(N);
-  int ans = 0;
-  for (int i = 0; i < N; ++i) {
-    int A;
-    cin >> A, --A;
-    g.add_edge(i, A);
-    if (i == A) { ++ans; }
-    rep(i, 0, N) cin >> A[i] >> B[i];
+  ll res = 0;
+  rep(i, 0, N) {
+    ll to;
+    cin >> to;
+    g.add_edge(i, --to);
+    if (i == to)
+      res++;
   }
-  for (auto c : g.scc()) {
-    if (c.size() >= 2) ans += c.size();
+  auto lists = g.scc();
+  for (auto list : lists) {
+    if (list.size() > 1) {
+      res += list.size();
+    }
   }
-  cout << ans << endl;
+  cout << res << endl;
   return 0;
 }
