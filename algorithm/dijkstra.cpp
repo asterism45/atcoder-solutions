@@ -20,8 +20,8 @@ ll gcd(ll a, ll b) {
   }
 }
 
-ll dijkstra(const vector<vector<pair<ll, ll>>> &G, ll r, ll p, ll n) {
-  vll dist(n + 1, INF), flag(n + 1, 0);
+ll dijkstra(const vector<vector<pair<ll, ll>>> &G, ll r, ll p) {
+  vll dist(N + 1, INF), visited(N + 1, 0);
   pqueue pq;
   pq.push(mp(0, r));
   dist[r] = 0;
@@ -29,7 +29,6 @@ ll dijkstra(const vector<vector<pair<ll, ll>>> &G, ll r, ll p, ll n) {
     auto top = pq.top();
     pq.pop();
     auto s = top.second;
-    auto sdis = top.first;
     flag[s] = 1;
     for (auto nx : G[s]) {
       auto t = nx.second;
