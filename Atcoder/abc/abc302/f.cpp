@@ -25,8 +25,32 @@ bool comp(int a, int b) { return a > b; } //降順
 
 int main()
 {
-    cin >> X;
-    if (X) cout << 0 << endl;
-    else cout << 1 << endl;
+    cin >> N >> M;
+    vvll G(N + M + 1);
+    rep(i, N) {
+        cin >> A;
+        rep(j, A) {
+            cin >> S;
+            G[i].push_back(S + N);
+            G[S + N].push_back(i);
+        }
+    }
+    queue<ll> que;
+    que.push(N + 1);
+    vll dist(N + M + 1, INF);
+    dist[N + 1] = 0;
+    while (!que.empty()) {
+        ll cu = que.front();
+        que.pop();
+        for (auto nx : G[cu]) {
+            ll nxdist = dist[cu] + 1;
+            if (dist[nx] > nxdist) {
+                dist[nx] = nxdist;
+                que.emplace(nx);
+            }
+        }
+    }
+    if (dist[N + M] == INF) cout << -1 << endl;
+    else cout << dist[N + M] / 2 - 1 << endl;
     return 0;
 }
