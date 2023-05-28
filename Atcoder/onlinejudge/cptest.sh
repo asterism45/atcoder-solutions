@@ -3,6 +3,7 @@
 problem_name=$1
 problem_name=${problem_name,,}
 problem_name=${problem_name##*/}
+#mode 変更 abc arc agc
 problem_name=${problem_name//atcoder\\abc\\/}
 test_dir=AtCoder/onlinejudge/test/${problem_name}
 base_url=${problem_name%_*}

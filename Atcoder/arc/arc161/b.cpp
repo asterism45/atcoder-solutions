@@ -58,10 +58,86 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-  instr(S);
-  rep(i, S.size()) {
-    S[i] = (int)S[i] - 32;
-  }
-  print(S);
-  return 0;
+    inll(T);
+    while (T-- > 0) {
+        inll(N);
+        bitset<63> bi(N);
+        ll num = bi.count();
+        //print(bi);
+        //print(bi.to_ullong());
+        if (N < 7) {
+            print(-1);
+        }
+        else {
+            //ok
+            if (num >= 3) {
+                ll cnt = 0;
+                rrep(i, bi.size()) {
+                    if (bi[i] && cnt < 3) {
+                        cnt++;
+                    }
+                    else if (bi[i] && cnt >= 3) {
+                        bi[i] = 0;
+                    }
+                }
+                print(bi.to_ullong());
+            }
+            else if (num == 2) {
+                if (bi[0] == 1) {
+                    bi[0] = 0;
+                    ll i = 63;
+                    while (bi[i] == 0) {
+                        i--;
+                    }
+                    bi[i] = 0;
+                    bi[--i] = 1;
+                    bi[--i] = 1;
+                    bi[--i] = 1;
+                    print(bi.to_ullong());
+                }
+                else if (bi[1] == 1) {
+                    bi[1] = 0;
+                    ll i = 63;
+                    while (bi[i] == 0) {
+                        i--;
+                    }
+                    bi[i] = 0;
+                    bi[--i] = 1;
+                    bi[--i] = 1;
+                    bi[--i] = 1;
+                    print(bi.to_ullong());
+                }
+                else {
+                    ll cnt = 0;
+                    rrep(i, bi.size()) {
+                        if (bi[i] == 1 && cnt == 0) {
+                            cnt++;
+                        }
+                        else if (bi[i] == 1 && cnt == 1) {
+                            bi[i] = 0;
+                            bi[--i] = 1;
+                            bi[--i] = 1;
+                            break;
+                        }
+                    }
+                    print(bi.to_ullong());
+                }
+            }
+            //ok
+            else {
+                ll i = 63;
+                while (bi[i] == 0) {
+                    i--;
+                }
+                bi[i] = 0;
+                bi[--i] = 1;
+                bi[--i] = 1;
+                bi[--i] = 1;
+                print(bi.to_ullong());
+            }
+        }
+    }
+
+
+    return 0;
 }

@@ -58,10 +58,26 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-  instr(S);
-  rep(i, S.size()) {
-    S[i] = (int)S[i] - 32;
-  }
-  print(S);
-  return 0;
+    inll(N);
+    invll(A, N);
+    sort(all(A));
+    reverse(all(A));
+    ll num = A[N / 2 - 1];
+    ll cnt = 0;
+    rep(i, N / 2, N) {
+        if (A[i] != num) break;
+        cnt++;
+    }
+    ll cnt2 = 0;
+    rrep(i, N / 2) {
+        if (A[i] != num) break;
+        cnt2++;
+    }
+    if (N == 3) {
+        if (A[0] == A[1]) YesNo(0);
+        else YesNo(1);
+    }
+    else if (cnt + cnt2 > N / 2) YesNo(0);
+    else YesNo(1);
+    return 0;
 }

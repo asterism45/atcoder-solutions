@@ -58,10 +58,30 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-  instr(S);
-  rep(i, S.size()) {
-    S[i] = (int)S[i] - 32;
-  }
-  print(S);
-  return 0;
+    inll(N, D);
+    if (N * D > N * (N - 1) / 2 || N == 1) {
+        print("No");
+    }
+    else {
+        ll cnt = 0;
+        ll st = 1, to = 0, wht = 1;
+        set<pair<ll, ll>> s;
+        while (cnt != D * N) {
+            if (st >= N + 1) {
+                st = 1;
+                wht++;
+            }
+            to = (st + wht);
+            if (to >= N + 1)
+                to -= N;
+
+            s.insert(mpa(st, to));
+            cnt++;
+            st++;
+        }
+        print("Yes");
+        for (auto p : s)
+            print(p.first, p.second);
+    }
+    return 0;
 }
