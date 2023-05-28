@@ -1,7 +1,7 @@
 #pragma region header
 #include <bits/stdc++.h>
-#include <atcoder/all>
-using namespace atcoder;
+//#include <atcoder/all>
+//using namespace atcoder;
 using namespace std;
 #define rep1(a)          for(ll i = 0; i < a; i++)
 #define rep2(i, a)       for(ll i = 0; i < a; i++)
@@ -20,7 +20,7 @@ using namespace std;
 #define pb push_back
 #define all(a) (a).begin(), (a).end()
 #define MOD 1000000007 //998244353
-using mint = modint1000000007; //998244353
+//using mint = modint1000000007; //998244353
 using ll = long long;
 using vll = vector<ll>;
 using vc = vector<char>;

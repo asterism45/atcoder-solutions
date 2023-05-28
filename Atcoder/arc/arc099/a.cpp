@@ -53,28 +53,16 @@ template <class T>int print(vector<vector<T>>& a) { for (auto& row : a) print(ro
 
 int main()
 {
-    inll(N);
-    ll n = 1;
-    while (n * n * n <= N) n++;
-    n--;
-    vll f(n + 1, 1), S(n + 1, 0);
-    rep(i, 2, n + 1) {
-        if (!f[i])continue;
-        rep(j, i * 2, n + 1, i)
-            f[j] = 0;
-    }
-    rep(i, 2, n + 1)
-        S[i] = S[i - 1] + f[i];
-
+    inll(N, K);
+    vll A(N);
+    rep(i, N)in(A[i]);
     ll res = 0;
-    rep(q, 3, n + 1) {
-        ll p = N / (q * q * q);
-        if (p >= q) p = q - 1;
-        if (f[q])
-            res += S[p];
-    }
+    if (N - K <= 0)
+        res = 1;
+    else if ((N - K) % (K - 1) == 0)
+        res = (N - K) / (K - 1) + 1;
+    else
+        res = (N - K) / (K - 1) + 2;
     print(res);
-
-
     return 0;
 }

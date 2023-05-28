@@ -34,8 +34,6 @@ ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
 void YesNo(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
 void YESNO(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
 bool comp(int a, int b) { return a > b; } //降順
-template<class... T> constexpr auto min(T... a) { return min(initializer_list<common_type_t<T...>>{a...}); }
-template<class... T> constexpr auto max(T... a) { return max(initializer_list<common_type_t<T...>>{a...}); }
 template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
 template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T, class U> bool chmin(T& a, const U& b) { if (a > T(b)) { a = b; return 1; } return 0; }
@@ -53,28 +51,34 @@ template <class T>int print(vector<vector<T>>& a) { for (auto& row : a) print(ro
 
 int main()
 {
-    inll(N);
-    ll n = 1;
-    while (n * n * n <= N) n++;
-    n--;
-    vll f(n + 1, 1), S(n + 1, 0);
-    rep(i, 2, n + 1) {
-        if (!f[i])continue;
-        rep(j, i * 2, n + 1, i)
-            f[j] = 0;
-    }
-    rep(i, 2, n + 1)
-        S[i] = S[i - 1] + f[i];
-
-    ll res = 0;
-    rep(q, 3, n + 1) {
-        ll p = N / (q * q * q);
-        if (p >= q) p = q - 1;
-        if (f[q])
-            res += S[p];
+    inll(N, H);
+    vll t(N), d(N);
+    rep(i, N) in(t[i], d[i]);
+    ll res = INF;
+    rep(i, N) {
+        if (t[i] == 1) {
+            if (H % d[i] == 0) chmin(res, H / d[i]);
+            else chmin(res, H / d[i] + 1);
+        }
+        else {
+            ll num = t[i] * (t[i] - 1) / 2 * d[i];
+            if (H > num) {
+                ll rest = H - num;
+                d[i] *= t[i];
+                if (rest % d[i] == 0) chmin(res, rest / d[i] + t[i] - 1);
+                else chmin(res, rest / d[i] + 1 + t[i] - 1);
+            }
+            else {
+                ll tm = H, j = d[i], tu = 0;
+                while (tm > 0) {
+                    tm -= j;
+                    j += d[i];
+                    tu++;
+                }
+                chmin(res, tu);
+            }
+        }
     }
     print(res);
-
-
     return 0;
 }
