@@ -56,6 +56,32 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
+ll solve(ll N) {
+    ll t = N, sum = 0;
+    while (t > 0) {
+        sum++;
+        t ^= t & -t;
+    }
+    if (N < 7) return -1;
+    else if (sum > 3)
+        return solve(N ^ (N & -N));
+    else if (sum == 3)
+        return N;
+    else
+        return solve(N - 1);
+}
+
+int main() {
+    inll(T);
+    while (T-- > 0) {
+        inll(N);
+        print(solve(N));
+    }
+    return 0;
+}
+
+
+/*
 int main()
 {
     inll(T);
@@ -141,3 +167,4 @@ int main()
 
     return 0;
 }
+*/

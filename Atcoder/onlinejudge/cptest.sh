@@ -1,10 +1,8 @@
 #!/bin/bash
 
 problem_name=$1
-echo
 problem_name=${problem_name,,}
 problem_name=${problem_name##*/}
-echo ${problem_name}
 test_dir=Atcoder/onlinejudge/test/${problem_name}
 base_url=${problem_name%_*}
 
