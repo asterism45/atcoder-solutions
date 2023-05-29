@@ -1,12 +1,24 @@
 #!/bin/bash
 
 problem_name=$1
+echo
 problem_name=${problem_name,,}
 problem_name=${problem_name##*/}
-#mode 変更 abc arc agc
-problem_name=${problem_name//atcoder\\abc\\/}
-test_dir=AtCoder/onlinejudge/test/${problem_name}
+echo ${problem_name}
+test_dir=Atcoder/onlinejudge/test/${problem_name}
 base_url=${problem_name%_*}
+
+#joiに関連する処理
+if [[ $problem_name =~ "joi" ]]; then
+    echo joi
+    if [[ $problem_name =~ ^joi([0-9]+)yo([0-9]+)(.*)$ ]]; then
+        problem_name=${problem_name//yo/_yo}
+    fi
+    if [[ $problem_name =~ "open" ]]; then
+        problem_name=${problem_name//open_/}
+    fi
+fi
+
 code_path=$2
 
 # make test directory

@@ -17,7 +17,7 @@ using Graph = vector<vector<int>>;
 using ll = long long;
 ll A, B, C, D, F, G, H, I, J, K, L, M, N, O, P, Q, S, T, U, W, X, Y, Z;
 ll res, cnt = 0;
-ll dy[4] = {1, -1, 0, 0}, dx[4] = {0, 0, 1, -1};
+ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 ll gcd(ll a, ll b)
 {
     if (a % b == 0)
