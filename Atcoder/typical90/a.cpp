@@ -58,31 +58,34 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
+ll isok(ll L, ll can, vll& A, ll K) {
+    ll cnt = 0, pre = 0;
+    rep(A.size()) {
+        if (A[i] - pre >= can) {
+            pre = A[i];
+            cnt++;
+        }
+    }
+    if (L - pre < can)
+        cnt--;
+    if (cnt >= K)
+        return 1;
+    else
+        return 0;
+}
 int main()
 {
-    inll(N);
-    map<ll, ll> mp;
-    rep(i, 1, N + 1) {
-        ll n = i;
-        rep_sqrt(j, 2, N) {
-            if (n % j == 0) {
-                while (n % j == 0)
-                {
-                    mp[j]++;
-                    n /= j;
-                }
-            }
-        }
-        if (n != 1)
-            mp[n]++;
+    inll(N, L, K);
+    vll A(N);
+    rep(N) in(A[i]);
+    ll ng = L, ok = 0, mid;
+    while (abs(ok - ng) > 1) {
+        mid = (ok + ng) / 2;
+        if (isok(L, mid, A, K))
+            ok = mid;
+        else
+            ng = mid;
     }
-    mint res = 1;
-    for (auto& [p, q] : mp) {
-        if (p > N || p < 2)continue;
-        res *= q + 1;
-        //cout << res.val() << endl;
-    }
-
-    cout << res.val() << endl;
+    print(ok);
     return 0;
 }
