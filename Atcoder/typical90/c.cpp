@@ -61,10 +61,12 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 int main()
 {
     inll(N);
-    ll num = N % 5;
-    if (num > 2)
-        print(5 * (N / 5 + 1));
-    else
-        print(5 * (N / 5));
+    vvll G(N + 1);
+    rep(i, 1, N) {
+        inll(A, B);
+        G[A].pb(B);
+        G[B].pb(A);
+    }
+    vll dist(N + 1, INF);
     return 0;
 }

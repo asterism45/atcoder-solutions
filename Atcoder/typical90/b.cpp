@@ -61,10 +61,28 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 int main()
 {
     inll(N);
-    ll num = N % 5;
-    if (num > 2)
-        print(5 * (N / 5 + 1));
-    else
-        print(5 * (N / 5));
+    set<string> st;
+    rep(bit, 0, 1 << N) {
+        bitset<20> bi = bit;
+        ll f = 1;
+        ll lcnt = 0, rcnt = 0;
+        rrep(i, N) {
+            if (bi[i] == 0)
+                lcnt++;
+            else
+                rcnt++;
+            if (lcnt < rcnt)
+                f = 0;
+        }
+        if (f && lcnt == rcnt) {
+            rrep(i, N) {
+                if (bi[i] == 1)
+                    cout << ")";
+                else
+                    cout << "(";
+            }
+            cout << endl;
+        }
+    }
     return 0;
 }

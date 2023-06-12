@@ -53,3 +53,25 @@ vector<pair<ll, ll>> prime_fac(const ll& N) {
     // 最後に残った数
     if (N != 1) res.push_back(mpa(N, 1));
 }
+
+// dfsを用いた全探索例（配列をglobal変数にする）以下はabc165 c の例
+vll A(10);
+ll res = 0;
+void dfs(vll& a, vll& b, vll& c, vll& d, ll cu, ll num, ll N, ll Q, ll M) {
+    if (cu == N) {
+        //print(A);
+        ll s = 0;
+        rep(Q) {
+            if (A[b[i] - 1] - A[a[i] - 1] == c[i])
+                s += d[i];
+        }
+        chmax(res, s);
+    }
+    else {
+        rep(i, num, M + 1) {
+            A[cu] = i;
+            //print("cu:", cu, "i:", i);
+            dfs(a, b, c, d, cu + 1, i, N, Q, M);
+        }
+    }
+}

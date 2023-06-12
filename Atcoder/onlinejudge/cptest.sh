@@ -32,7 +32,7 @@ if ! oj login --check https://atcoder.jp/; then
 fi
 # compile and test
 if [ "$5" = "test" ]; then
-    g++ -std=gnu++17 -Wall -Wextra -O2 -I/home/klyn0101/ac-library ${code_path} -o ./a.out && oj test -c "./a.out" -d ${test_dir} --tle 2.5 --mle 1024
+    g++ -std=gnu++17 -Wall -Wextra -O2 -I/home/klyn0101/ac-library ${code_path} -o ./a.out && oj test -c "./a.out" -d ${test_dir} --tle 2.5 --mle 1024 -N
 elif [ "$5" = "submit" ]; then
     # submit if tests pass
     echo "Submitting..."
