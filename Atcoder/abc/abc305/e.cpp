@@ -29,7 +29,7 @@ using vs = vector<string>;
 using vpll = vector<pair<ll, ll>>;
 using vvll = vector<vector<ll>>;
 using vvc = vector<vector<char>>;
-using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>>;
+using pqueue = priority_queue < pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
 ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
@@ -58,48 +58,49 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
+void dijc(vector<vpll>& G, vll& dist) {
+    pqueue pq;
+    pq.emplace(mpa(0, 0));
+    dist[0] = 0;
+    while (!pq.empty()) {
+        auto pa = pq.top();
+        pq.pop();
+        ll cu = pa.second;
+        if (dist[cu] < pa.first) continue;
+        for (auto [nxw, nx] : G[cu]) {
+            if (dist[nx] <= dist[cu] + nxw) continue;
+            dist[nx] = dist[cu] + nxw;
+            pq.emplace(mpa(dist[nx], nx));
+        }
+    }
+}
+
 int main()
 {
     inll(N, M, K);
-    vvll G(N + 1);
+    vector<vpll> G(N + 1);
     rep(M) {
         inll(a, b);
-        G[a].pb(b);
-        G[b].pb(a);
+        G[a].pb(mpa(1, b));
+        G[b].pb(mpa(1, a));
     }
-    vpll hp(K);
+    ll thre = N + 1;
     rep(K) {
         inll(p, h);
-        hp[i] = mpa(h, p);
+        G[0].pb(mpa(thre - h, p));
     }
-    vll dist(N + 1, -1);
-    pqueue pq;
-    for (auto& [h, p] : hp) {
-        pq.emplace(mpa(h, p));
-    }
-    while (!pq.empty()) {
-        pair<ll, ll> pa = pq.top();
-        pq.pop();
-        dist[pa.second] = pa.first;
-        if (pa.first == 0)continue;
-        for (auto nx : G[pa.second]) {
-            if (dist[nx] < pa.first - 1) {
-                chmax(dist[nx], pa.first - 1);
-                pq.emplace(mpa(pa.first - 1, nx));
-            }
-        }
-    }
+    vll dist(N + 1, INF);
+    dijc(G, dist);
+    //print(dist);
     ll cnt = 0;
     rep(i, 1, N + 1) {
-        if (dist[i] >= 0)
+        if (dist[i] <= thre)
             cnt++;
     }
     print(cnt);
     rep(i, 1, N + 1) {
-        if (dist[i] >= 0)
+        if (dist[i] <= thre)
             cout << i << " ";
     }
-    cout << endl;
-    //print(dist);
-    return 0;
+
 }

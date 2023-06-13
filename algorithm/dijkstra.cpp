@@ -11,33 +11,51 @@ using vvll = vector<vector<ll>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
 ll A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
 ll res = 0, cnt = 0;
-ll dy[4] = {1, -1, 0, 0}, dx[4] = {0, 0, 1, -1};
+ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 ll gcd(ll a, ll b) {
   if (a % b == 0) {
     return b;
-  } else {
+  }
+  else {
     return gcd(b, a % b);
   }
 }
 
-ll dijkstra(const vector<vector<pair<ll, ll>>> &G, ll r, ll p) {
-  vll dist(N + 1, INF), visited(N + 1, 0);
+// latest
+void dijc(vector<vpll>& G, vll& dist) {
+  pqueue pq;
+  pq.emplace(mpa(0, 0));
+  dist[0] = 0;
+  while (!pq.empty()) {
+    auto pa = pq.top();
+    pq.pop();
+    ll cu = pa.second;
+    if (dist[cu] < pa.first) continue;
+    for (auto [nxw, nx] : G[cu]) {
+      if (dist[nx] <= dist[cu] + nxw) continue;
+      dist[nx] = dist[cu] + nxw;
+      pq.emplace(mpa(dist[nx], nx));
+    }
+  }
+}
+
+ll dijkstra(const vector<vector<pair<ll, ll>>>& G, ll r, ll p) {
+  vll dist(N + 1, INF);
   pqueue pq;
   pq.push(mp(0, r));
   dist[r] = 0;
   while (!pq.empty()) {
     auto top = pq.top();
     pq.pop();
-    auto s = top.second;
-    flag[s] = 1;
-    for (auto nx : G[s]) {
-      auto t = nx.second;
-      auto tdis = nx.first;
-      if (flag[t] == 0) {
-        if (dist[t] <= dist[s] + tdis)
+    auto cu = top.second;
+    visited[cu] = 1;
+    if (dist[cu] < top.first) continue;
+    for (auto [nxw, nx] : G[cu]) {
+      if (visited[nx] == 0) {
+        if (dist[nx] <= dist[cu] + nxw)
           continue;
-        dist[t] = dist[s] + tdis;
-        pq.push(mp(dist[s] + tdis, t));
+        dist[nx] = dist[cu] + nxw;
+        pq.push(mp(dist[nx], nx));
       }
     }
   }
@@ -55,16 +73,16 @@ int main() {
     cin >> mode;
     ll a, b, d;
     switch (mode) {
-      case 0:
-        cin >> a >> b;
-        cout << dijkstra(G, a, b, n) << endl;
-        break;
-      case 1:
-        cin >> a >> b >> d;
-        G[a].pb(mp(d, b));
-        G[b].pb(mp(d, a));
-      default:
-        break;
+    case 0:
+      cin >> a >> b;
+      cout << dijkstra(G, a, b, n) << endl;
+      break;
+    case 1:
+      cin >> a >> b >> d;
+      G[a].pb(mp(d, b));
+      G[b].pb(mp(d, a));
+    default:
+      break;
     }
   }
   return 0;
