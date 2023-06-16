@@ -1,7 +1,5 @@
 #pragma region header
 #include <bits/stdc++.h>
-#include <atcoder/all>
-using namespace atcoder;
 using namespace std;
 #define rep1(a)          for(ll i = 0; i < a; i++)
 #define rep2(i, a)       for(ll i = 0; i < a; i++)
@@ -21,7 +19,6 @@ using namespace std;
 #define pb push_back
 #define all(a) (a).begin(), (a).end()
 #define MOD 1000000007 //998244353
-using mint = modint1000000007; //998244353
 using ll = long long;
 using vll = vector<ll>;
 using vc = vector<char>;
@@ -32,9 +29,10 @@ using vvc = vector<vector<char>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
 ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
+bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W; }
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
-void YesNo(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
-void YESNO(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
+void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
+void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
 bool comp(int a, int b) { return a > b; } //降順
 template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
 template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
@@ -58,59 +56,37 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-bool inrange(ll H, ll W, ll y, ll x) {
-    if (0 <= y && y < H && 0 <= x && x < W)
-        return 1;
-    else
-        return 0;
-}
 int main()
 {
-    inll(H, W);
-    invvc(A, H, W);
-    map<char, vpll> mp;
+    inll(W, H);
+    invvc(grid, H, W);
     pair<ll, ll> st, go;
     rep(i, H) {
         rep(j, W) {
-            if (A[i][j] >= 97 && A[i][j] <= 122)
-                mp[A[i][j]].pb(mpa(i, j));
-            else if (A[i][j] == 'S')
+            if (grid[i][j] == 's')
                 st = mpa(i, j);
-            else if (A[i][j] == 'G')
+            if (grid[i][j] == 'g')
                 go = mpa(i, j);
         }
     }
     queue<pair<ll, ll>> que;
-    vvll dist(H, vll(W, INF));
-    que.emplace(st);
+    vvll dist(H, vll(W, -1));
     dist[st.first][st.second] = 0;
-    while (!que.empty())
-    {
+    que.emplace(st);
+    while (que.size()) {
         auto [y, x] = que.front();
         que.pop();
-        if (A[y][x] >= 97 && A[y][x] <= 122) {
-            for (auto [ny, nx] : mp[A[y][x]]) {
-                if (dist[ny][nx] > dist[y][x] + 1) {
-                    dist[ny][nx] = dist[y][x] + 1;
-                    que.emplace(mpa(ny, nx));
-                }
-            }
-            mp.erase(A[y][x]);
-        }
         rep(i, 4) {
             ll ny = y + dy[i], nx = x + dx[i];
-            if (inrange(H, W, ny, nx) && A[ny][nx] != '#') {
-                if (dist[ny][nx] > dist[y][x] + 1) {
-                    dist[ny][nx] = dist[y][x] + 1;
-                    que.emplace(mpa(ny, nx));
-                }
+            if (inrange(H, W, ny, nx) && grid[ny][nx] != '1' && dist[ny][nx] == -1) {
+                que.emplace(mpa(ny, nx));
+                dist[ny][nx] = dist[y][x] + 1;
             }
         }
     }
-    if (dist[go.first][go.second] == INF)
-        print(-1);
+    if (dist[go.first][go.second] == -1)
+        print("Fail");
     else
         print(dist[go.first][go.second]);
-
     return 0;
 }

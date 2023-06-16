@@ -32,9 +32,10 @@ using vvc = vector<vector<char>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
 ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
+bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W; }
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
-void YesNo(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
-void YESNO(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
+void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
+void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
 bool comp(int a, int b) { return a > b; } //降順
 template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
 template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
@@ -58,59 +59,11 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-bool inrange(ll H, ll W, ll y, ll x) {
-    if (0 <= y && y < H && 0 <= x && x < W)
-        return 1;
-    else
-        return 0;
-}
 int main()
 {
-    inll(H, W);
-    invvc(A, H, W);
-    map<char, vpll> mp;
-    pair<ll, ll> st, go;
-    rep(i, H) {
-        rep(j, W) {
-            if (A[i][j] >= 97 && A[i][j] <= 122)
-                mp[A[i][j]].pb(mpa(i, j));
-            else if (A[i][j] == 'S')
-                st = mpa(i, j);
-            else if (A[i][j] == 'G')
-                go = mpa(i, j);
-        }
-    }
-    queue<pair<ll, ll>> que;
-    vvll dist(H, vll(W, INF));
-    que.emplace(st);
-    dist[st.first][st.second] = 0;
-    while (!que.empty())
-    {
-        auto [y, x] = que.front();
-        que.pop();
-        if (A[y][x] >= 97 && A[y][x] <= 122) {
-            for (auto [ny, nx] : mp[A[y][x]]) {
-                if (dist[ny][nx] > dist[y][x] + 1) {
-                    dist[ny][nx] = dist[y][x] + 1;
-                    que.emplace(mpa(ny, nx));
-                }
-            }
-            mp.erase(A[y][x]);
-        }
-        rep(i, 4) {
-            ll ny = y + dy[i], nx = x + dx[i];
-            if (inrange(H, W, ny, nx) && A[ny][nx] != '#') {
-                if (dist[ny][nx] > dist[y][x] + 1) {
-                    dist[ny][nx] = dist[y][x] + 1;
-                    que.emplace(mpa(ny, nx));
-                }
-            }
-        }
-    }
-    if (dist[go.first][go.second] == INF)
-        print(-1);
-    else
-        print(dist[go.first][go.second]);
-
+    inll(N, M);
+    vll check(N + 1, 0);
+    check[1] = 1;
+    
     return 0;
 }
