@@ -63,7 +63,23 @@ int main()
 {
     inll(N, M);
     vll check(N + 1, 0);
-    check[1] = 1;
-    
-    return 0;
+
+    auto dfs = [&](auto self, ll cu) -> void {
+        if (cu == N) {
+            instr(ok);
+            exit(0);
+        }
+        inll(k);
+        invll(v, k);
+        check[cu] = 1;
+        for (auto& nv : v) {
+            if (check[nv]) continue;
+            print(nv);
+            self(self, nv);
+        }
+        print(cu);
+        inll(p);
+        invll(cv, p);
+    };
+    dfs(dfs, 1);
 }
