@@ -62,11 +62,31 @@ int main()
 {
     inll(N);
     vvll G(N + 1);
-    rep(i, 1, N) {
+    rep(N - 1) {
         inll(A, B);
         G[A].pb(B);
         G[B].pb(A);
     }
+    rep(i, 1, N + 1) {
+        if (G[i].size() == 1) {
+            G[0].pb(i);
+        }
+    }
+    queue<ll> que;
+    que.emplace(0);
     vll dist(N + 1, INF);
+    dist[0] = 0;
+    while (que.size()) {
+        ll cu = que.front();
+        que.pop();
+        for (auto nx : G[cu]) {
+            if (dist[nx] != INF) continue;
+            que.emplace(nx);
+            dist[nx] = dist[cu] + 1;
+        }
+    }
+    sort(all(dist));
+    reverse(all(dist));
+    print(dist[0] + dist[1]);
     return 0;
 }
