@@ -75,3 +75,4 @@ void dfs(vll& a, vll& b, vll& c, vll& d, ll cu, ll num, ll N, ll Q, ll M) {
         }
     }
 }
+

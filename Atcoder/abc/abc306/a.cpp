@@ -26,23 +26,23 @@ using ll = long long;
 using vll = vector<ll>;
 using vc = vector<char>;
 using vs = vector<string>;
-using vpll = vector<pair<ll,ll>>;
+using vpll = vector<pair<ll, ll>>;
 using vvll = vector<vector<ll>>;
 using vvc = vector<vector<char>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
-ll dy[4] = {1, -1, 0, 0}, dx[4] = {0, 0, 1, -1};
+ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
 bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W; }
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
 void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
 void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
-bool comp(int a, int b) {return a > b;} //降順
-template<class T> bool chmin(T& a, const T& b){ if(a > b){ a = b; return 1; } return 0; }
-template<class T> bool chmax(T& a, const T& b){ if(a < b){ a = b; return 1; } return 0; }
-template<class T, class U> bool chmin(T& a, const U& b){ if(a > T(b)){ a = b; return 1; } return 0; }
-template<class T, class U> bool chmax(T& a, const U& b){ if(a < T(b)){ a = b; return 1; } return 0; }
+bool comp(int a, int b) { return a > b; } //降順
+template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
+template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T, class U> bool chmin(T& a, const U& b) { if (a > T(b)) { a = b; return 1; } return 0; }
+template<class T, class U> bool chmax(T& a, const U& b) { if (a < T(b)) { a = b; return 1; } return 0; }
 void in() {};
-template <class T, class... U> void in(T &&x, U &&...y) { cin >> x; in(forward<U>(y)...); }
+template <class T, class... U> void in(T&& x, U &&...y) { cin >> x; in(forward<U>(y)...); }
 int print() { /*cout << '\n';*/ return 0; }
 template <class head, class... tail> int print(head&& h, tail&&... t) { cout << h << (sizeof...(t) ? ' ' : '\n'); return print(forward<tail>(t)...); }
 #define inll(...) ll __VA_ARGS__; in(__VA_ARGS__)
@@ -61,6 +61,13 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-    inll();
+    inll(N);
+    instr(S);
+    string s = "";
+    rep(N) {
+        s.append(1, S[i]);
+        s.append(1, S[i]);
+    }
+    print(s);
     return 0;
 }
