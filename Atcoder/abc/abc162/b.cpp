@@ -28,24 +28,24 @@ using int128 = __int128_t;
 using vll = vector<ll>;
 using vc = vector<char>;
 using vs = vector<string>;
-using vpll = vector<pair<ll,ll>>;
+using vpll = vector<pair<ll, ll>>;
 using vvll = vector<vector<ll>>;
 using vvc = vector<vector<char>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
-ll dy[4] = {1, -1, 0, 0}, dx[4] = {0, 0, 1, -1};
+ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
 bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W; }
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
 void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
 void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
-bool comp(int a, int b) {return a > b;} //降順
-template<class T> bool chmin(T& a, const T& b){ if(a > b){ a = b; return 1; } return 0; }
-template<class T> bool chmax(T& a, const T& b){ if(a < b){ a = b; return 1; } return 0; }
-template<class T, class U> bool chmin(T& a, const U& b){ if(a > T(b)){ a = b; return 1; } return 0; }
-template<class T, class U> bool chmax(T& a, const U& b){ if(a < T(b)){ a = b; return 1; } return 0; }
-__int128_t string_to_int128(const string &s) { __int128_t res = 0; bool neg = s[0] == '-'; for (size_t i = neg ? 1 : 0; i < s.size(); ++i) res = res * 10 + (s[i] - '0'); return neg ? -res : res; }
+bool comp(int a, int b) { return a > b; } //降順
+template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
+template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T, class U> bool chmin(T& a, const U& b) { if (a > T(b)) { a = b; return 1; } return 0; }
+template<class T, class U> bool chmax(T& a, const U& b) { if (a < T(b)) { a = b; return 1; } return 0; }
+__int128_t string_to_int128(const string& s) { __int128_t res = 0; bool neg = s[0] == '-'; for (size_t i = neg ? 1 : 0; i < s.size(); ++i) res = res * 10 + (s[i] - '0'); return neg ? -res : res; }
 void in() {};
-template <class T, class... U> void in(T &&x, U &&...y) { cin >> x; in(forward<U>(y)...); }
+template <class T, class... U> void in(T&& x, U &&...y) { cin >> x; in(forward<U>(y)...); }
 int print() { /*cout << '\n';*/ return 0; }
 void print_int128(__int128_t h) { string s; bool neg = h < 0; if (neg) h = -h; do { s = char(h % 10 + '0') + s; h /= 10; } while (h); if (neg) s = '-' + s; cout << s; }
 template <class head, class... tail> int print(head&& h, tail&&... t) { if constexpr (is_same_v<decay_t<head>, __int128_t>) { print_int128(h); } else { cout << h; } cout << (sizeof...(t) ? ' ' : '\n'); return print(forward<tail>(t)...); }
@@ -65,6 +65,152 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-    inll();
+    inll(N);
+    invll(P, N);
+    vll Q(N);
+    ll f = 1, ok = 1, cnt = 0;
+    vll x, y;
+    while (ok) {
+        if (cnt > 2000) {
+            Yes(0);
+            return 0;
+        }
+        if (f) {
+            ll ch = -1;
+            rep(i, N - 2) {
+                if (P[i] > P[i + 1]) {
+                    ch = i + 1;
+                    break;
+                }
+            }
+            if (ch == -1) {
+                if (P[N - 1] == 1) {
+                    rep(N - 1 / 2) {
+                        x.pb(1);
+                        y.pb(N - 2);
+                        cnt++;
+                    }
+                    ll check = 1;
+                    rep(N) {
+                        if (P[i] != i)
+                            check = 0;
+                    }
+                    if (check && cnt <= 2000) {
+                        Yes(1);
+                        print(x.size());
+                        rep(cnt) {
+                            print(x[i], y[i]);
+                        }
+                        return 0;
+                    }
+                    else {
+                        Yes(0);
+                        return 0;
+                    }
+                }
+                else {
+                    Yes(1);
+                    print(x.size());
+                    rep(cnt) {
+                        print(x[i], y[i]);
+                    }
+                    return 0;
+                }
+            }
+            else {
+                ll pla = -1;
+                rep(i, N) {
+                    if (i == ch || i == ch + 1) continue;
+                    if (P[i] > P[ch]) {
+                        pla = i;
+                        break;
+                    }
+                }
+                ll i = 0;
+                rep(i, N) {
+                    if (i == ch || i == ch + 1) continue;
+                    if (i == pla) {
+                        Q.pb(P[ch]);
+                        Q.pb(P[ch + 1]);
+                    }
+                    else {
+                        Q.pb(P[i]);
+                    }
+                }
+                cnt++;
+                x.pb(ch + 1);
+                y.pb(pla);
+            }
+            f = 0;
+        }
+        else {
+            ll ch = -1;
+            rep(i, N - 2) {
+                if (Q[i] > Q[i + 1]) {
+                    ch = i + 1;
+                    break;
+                }
+            }
+            if (ch == -1) {
+                if (Q[N - 1] == 1) {
+                    rep(N - 1 / 2) {
+                        x.pb(1);
+                        y.pb(N - 2);
+                        cnt++;
+                    }
+                    ll check = 1;
+                    rep(N) {
+                        if (Q[i] != i)
+                            check = 0;
+                    }
+                    if (check && cnt <= 2000) {
+                        Yes(1);
+                        print(x.size());
+                        rep(cnt) {
+                            print(x[i], y[i]);
+                        }
+                        return 0;
+                    }
+                    else {
+                        Yes(0);
+                        return 0;
+                    }
+                }
+                else {
+                    Yes(1);
+                    print(x.size());
+                    rep(cnt) {
+                        print(x[i], y[i]);
+                    }
+                    return 0;
+                }
+            }
+            else {
+                ll pla = -1;
+                rep(i, N) {
+                    if (i == ch || i == ch + 1) continue;
+                    if (Q[i] > Q[ch]) {
+                        pla = i;
+                        break;
+                    }
+                }
+                ll i = 0;
+                rep(i, N) {
+                    if (i == ch || i == ch + 1) continue;
+                    if (i == pla) {
+                        P.pb(Q[ch]);
+                        P.pb(Q[ch + 1]);
+                    }
+                    else {
+                        P.pb(Q[i]);
+                    }
+                }
+                cnt++;
+                x.pb(ch + 1);
+                y.pb(pla);
+            }
+            f = 1;
+        }
+    }
     return 0;
 }
