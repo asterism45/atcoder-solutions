@@ -62,7 +62,6 @@ template <class T> int print(set<T>& s, char sep = ' ') { for (auto& val : s) co
 template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val : ms) cout << val << (&val != &*prev(ms.end()) ? sep : '\n'); return 0; }
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
-
 int main()
 {
     inll(N, M);
