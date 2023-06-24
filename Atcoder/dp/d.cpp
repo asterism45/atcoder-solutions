@@ -65,27 +65,19 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-    instr(S, T);
-    vll f(T.size() + 1, 1);
-    ll flag1 = 1;
-    rep(i, 1, T.size() + 1) {
-        if (S[i] != '?' && T[i] == '?' && S[i] != T[i]) {
-            flag1 = 0;
+    inll(N, W);
+    vll w(N), v(N);
+    rep(N) in(w[i], v[i]);
+    vvll dp(N + 1, vll(2000, 0));
+    rep(i, 0, N) {
+        rep(j, W + 1) {
+            chmax(dp[i + 1][j + w[i]], dp[i][j] + v[i]);
+            chmax(dp[i + 1][j], dp[i][j]);
         }
-        f[i] = flag1;
     }
-    ll flag2 = 1;
-    ll j = T.size() - 1;
-    rrep(i, S.size(), S.size() - T.size()) {
-        if (S[i] != '?' && T[j] == '?' && S[i] != T[j]) {
-            flag2 = 0;
-        }
-        j--;
-        if (j >= 0)
-            f[j] = flag2;
-    }
-    rep(f.size()) {
-        Yes(!f[i]);
-    }
+    ll res = 0;
+    rep(i, W + 1)
+        chmax(res, dp[N][i]);
+    print(res);
     return 0;
 }
