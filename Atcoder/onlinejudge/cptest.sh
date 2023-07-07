@@ -17,6 +17,36 @@ if [[ $problem_name =~ "joi" ]]; then
     fi
 fi
 
+#aizuに関連する処理
+if [[ $problem_name =~ "aizu" ]]; then
+    #problem_name から aizu_ を削除
+    problem_name=${problem_name//aizu_/}
+    code_path=$2
+    gen_path=$3
+    sol_path=$4
+
+    # make test directory
+    if [ ! -e ${test_dir} ]; then
+        oj dl -d ${test_dir} https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=${problem_name}
+    fi
+
+    # if ! oj login --check https://judge.u-aizu.ac.jp/onlinejudge/signin.jsp; then
+    #     oj login https://judge.u-aizu.ac.jp/onlinejudge/signin.jsp
+    # fi
+    # compile and test
+    if [ "$5" = "test" ]; then
+        g++ -std=gnu++17 -Wall -Wextra -O2 ${code_path} -o ./a.out && oj test -c "./a.out" -d ${test_dir} --tle 3 --mle 1024 -N
+    elif [ "$5" = "submit" ]; then
+        # submit if tests pass
+        echo "Submitting..."
+        oj s --wait=0 https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=${problem_name} ${code_path}
+    else
+        echo "Invalid option. Use 'test' for testing, 'submit' for submitting, or 'gen-sol' for generating test cases and solving."
+    fi
+    exit 0
+fi
+
+
 code_path=$2
 gen_path=$3
 sol_path=$4
