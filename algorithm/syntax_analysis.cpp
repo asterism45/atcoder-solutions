@@ -61,8 +61,6 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 #pragma endregion 
 typedef string::const_iterator State;
 
-
-
 ll priority(char op) {
     if (op == '+' || op == '-') return 1;
     if (op == '*' || op == '/') return 2;
@@ -124,8 +122,6 @@ ll number(State& begin) {
     return ret;
 }
 
-
-
 ll cal_rpn(vs& rpn) {
     stack<ll> stk;
     for (auto& val : rpn) {
@@ -147,7 +143,6 @@ ll cal_rpn(vs& rpn) {
     }
     return stk.top();
 }
-
 
 int main(void) {
     int N;
