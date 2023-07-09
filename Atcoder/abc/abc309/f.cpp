@@ -62,12 +62,34 @@ template <class T>int print(vector<vector<T>>& a) { for (auto& row : a) print(ro
 template <class K, class V> int print(map<K, V>& m, char sep = ' ') { for (auto& p : m) cout << p.second << (&p != &*prev(m.end()) ? sep : '\n'); return 0; }
 template <class T> int print(set<T>& s, char sep = ' ') { for (auto& val : s) cout << val << (&val != &*prev(s.end()) ? sep : '\n'); return 0; }
 template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val : ms) cout << val << (&val != &*prev(ms.end()) ? sep : '\n'); return 0; }
+/*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
 int main()
 {
-    cout << fixed << setprecision(15);
-    inld(A, B);
-    print((A - B) / 3 + B);
+    inll(N);
+    vvll box(N, vll(3));
+    rep(i, N) {
+        invll(A, 3);
+        sort(all(A));
+        box[i] = A;
+        // print(box[i]);
+    }
+    vector <pair<ll, pair<ll, ll>>> first(N);
+    rep(i, N) first[i] = mpa(box[i][0], mpa(box[i][1], box[i][2]));
+    sort(all(first));
+    vpll second(N);
+    rep(i, N) {
+        if (i != 0 && first[i].first == first[i - 1].first)
+            second[i] = first[i]
+        else
+            second[i] = first[i].second;
+    }
+    sort(all(second));
+    ll f = 1;
+    rep(i, 1, N) {
+        if (second[i].second > second[i - 1].second) f = 0;
+    }
+    Yes(!f);
     return 0;
 }
