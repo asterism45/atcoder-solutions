@@ -76,3 +76,15 @@ void dfs(vll& a, vll& b, vll& c, vll& d, ll cu, ll num, ll N, ll Q, ll M) {
     }
 }
 
+// 3しんすうに変換
+string toBase3(ll n) {
+    string result = "";
+
+    do {
+        result += to_string(n % 3);
+        n /= 3;
+    } while (n > 0);
+
+    reverse(result.begin(), result.end());
+    return result;
+}
