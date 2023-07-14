@@ -23,6 +23,7 @@ using namespace std;
 #define MOD 1000000007 //998244353
 using mint = modint1000000007; //998244353
 using ll = long long;
+using ld = long double;
 using ull = unsigned long long;
 using int128 = __int128_t;
 using vll = vector<ll>;
@@ -50,6 +51,7 @@ int print() { /*cout << '\n';*/ return 0; }
 void print_int128(__int128_t h) { string s; bool neg = h < 0; if (neg) h = -h; do { s = char(h % 10 + '0') + s; h /= 10; } while (h); if (neg) s = '-' + s; cout << s; }
 template <class head, class... tail> int print(head&& h, tail&&... t) { if constexpr (is_same_v<decay_t<head>, __int128_t>) { print_int128(h); } else { cout << h; } cout << (sizeof...(t) ? ' ' : '\n'); return print(forward<tail>(t)...); }
 #define inll(...) ll __VA_ARGS__; in(__VA_ARGS__)
+#define inld(...) ld __VA_ARGS__; in(__VA_ARGS__)
 #define instr(...) string __VA_ARGS__; in(__VA_ARGS__)
 #define invll(vec,n) vll vec(n); rep(i, n) in(vec[i]);
 #define invs(vec,n) vs vec(n); rep(i, n) in(vec[i]);
@@ -65,26 +67,11 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 
 int main()
 {
-    inll(T);
-    while (T-- > 0) {
-        inll(N);
-        invll(P, N);
-        rep(i, N) {
-            P[i]--;
-        }
-        vll c(N);
-        rep(i, N) {
-            c[P[i]] = i;
-        }
-        ll pre = c[0];
-        ll res = 1;
-        rep(i, 1, N) {
-            if (pre < c[i]) {
-                pre = c[i];
-                res++;
-            }
-        }
-        print(res);
+    instr(N);
+    ll f = 0;
+    rep(i, N.size()) {
+        if (N[i] == '7') f = 1;
     }
+    Yes(f);
     return 0;
 }

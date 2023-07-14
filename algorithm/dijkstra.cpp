@@ -21,8 +21,8 @@ ll gcd(ll a, ll b) {
   }
 }
 
-// latest
-void dijc(vector<vpll>& G, vll& dist) {
+// distを返すパターン
+void dijcstra(vector<vpll>& G, vll& dist) {
   pqueue pq;
   pq.emplace(mpa(0, 0));
   dist[0] = 0;

@@ -65,7 +65,7 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-void dijc(vector<vpll>& G, vll& dist, ll thre) {
+void dijc(vector<vpll>& G, vll& dist) {
     pqueue pq;
     pq.emplace(mpa(0, 0));
     dist[0] = 0;
@@ -100,7 +100,7 @@ int main()
         G[0].pb(mpa(thre - y[i], x[i]));
     }
     vll dist(N + 1, INF);
-    dijc(G, dist, thre);
+    dijc(G, dist);
     //print(dist);
     ll cnt = 0;
     rep(i, 1, N + 1) {

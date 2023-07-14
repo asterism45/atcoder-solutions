@@ -65,31 +65,15 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-// 約数を列挙してvllで返す
-ll enum_div(ll N) {
-    vll res;
-    rep_sqrt(i, 1, N) {
-        if (N % i == 0) {
-            res.pb(i);
-            if (i * i != N)
-                res.pb(N / i);
-        }
-    }
-    sort(all(res));
-    return (ll)(res.size());
-}
-
 int main()
 {
     inll(N);
-    ll res = 0;
-    rep(i, 1, N + 1) {
-        if (i % 2 == 0) continue;
-        if (enum_div(i) == 8) {
-            res++;
-            // print(i);
-        }
+    invll(A, N);
+    vll B = A;
+    sort(all(B));
+    ll cl = *B.begin(), cr = *B.rbegin();
+    rep(N) {
+        print(max(abs(A[i] - cl), abs(A[i] - cr)));
     }
-    print(res);
     return 0;
 }

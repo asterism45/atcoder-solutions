@@ -65,31 +65,51 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-// 約数を列挙してvllで返す
-ll enum_div(ll N) {
-    vll res;
-    rep_sqrt(i, 1, N) {
-        if (N % i == 0) {
-            res.pb(i);
-            if (i * i != N)
-                res.pb(N / i);
-        }
-    }
-    sort(all(res));
-    return (ll)(res.size());
-}
-
 int main()
 {
-    inll(N);
-    ll res = 0;
-    rep(i, 1, N + 1) {
-        if (i % 2 == 0) continue;
-        if (enum_div(i) == 8) {
-            res++;
-            // print(i);
+    inll(H, W);
+    invvc(S, H, W);
+    vll hs(H), ws(W);
+    rep(i, H) {
+        rep(j, W) {
+            if (S[i][j] == '.') hs[i]++;
         }
     }
-    print(res);
+
+    print(hs);
+    ll index = 0;
+    rep(i, H) {
+        if (hs[index] < hs[i]) index = i;
+    }
+    rep(i, W) {
+        if (S[index][i] == '#') S[index][i] = '.';
+        else S[index][i] = '#';
+    }
+
+    rep(j, W) {
+        rep(i, H) {
+            if (S[i][j] == '#') ws[j]++;
+        }
+    }
+    // print(ws);
+    ll index2 = 0;
+    rep(i, W) {
+        if (ws[index2] < ws[i]) index2 = i;
+    }
+    rep(i, H) {
+        if (S[i][index2] == '#') S[i][index2] = '.';
+        else S[i][index2] = '#';
+    }
+
+    ll omo = 0, ura = 0;
+    rep(i, H) {
+        rep(j, W) {
+            if (S[i][j] == '.') ura++;
+            else omo++;
+        }
+    }
+    print(index + 1, index2 + 1);
+    print(omo, ura);
+
     return 0;
 }
