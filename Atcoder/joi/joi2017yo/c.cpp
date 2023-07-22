@@ -65,18 +65,37 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-
-
 int main()
 {
-    inll(N);
-    instr(S);
-    ll cnt = 0;
-    rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
+    inll(H, W, D);
+    invvc(P, H, W);
+    ll res = 0;
+    // print(P);
+    rep(i, H) {
+        ll l = 0, r = 0;
+        while (l < W - 1) {
+            while (r < W) {
+                if (P[i][r] == '.') r++;
+                else break;
+            }
+            if (r - l + 1 >= D) res += r - l + 1 - D;
+            r++;
+            l = r;
         }
     }
+    // print(res);
+    rep(j, W) {
+        ll l = 0, r = 0;
+        while (l < H - 1) {
+            while (r < H) {
+                if (P[r][j] == '.') r++;
+                else break;
+            }
+            if (r - l + 1 >= D) res += r - l + 1 - D;
+            r++;
+            l = r;
+        }
+    }
+    print(res);
     return 0;
 }

@@ -23,6 +23,9 @@ using namespace std;
 #define MOD 1000000007 //998244353
 using mint = modint1000000007; //998244353
 using ll = long long;
+using ld = long double;
+using ull = unsigned long long;
+using int128 = __int128_t;
 using vll = vector<ll>;
 using vc = vector<char>;
 using vs = vector<string>;
@@ -32,19 +35,23 @@ using vvc = vector<vector<char>>;
 using pqueue = priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>>;
 ll dy[4] = { 1, -1, 0, 0 }, dx[4] = { 0, 0, 1, -1 };
 // ll dy[8] = {1,1,1,0,0,-1,-1,-1}, dx[8] = {1,0,-1,1,-1,1,0,-1};
+bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W; }
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
-void YesNo(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
-void YESNO(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
+void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
+void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
 bool comp(int a, int b) { return a > b; } //降順
 template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
 template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T, class U> bool chmin(T& a, const U& b) { if (a > T(b)) { a = b; return 1; } return 0; }
 template<class T, class U> bool chmax(T& a, const U& b) { if (a < T(b)) { a = b; return 1; } return 0; }
+__int128_t string_to_int128(const string& s) { __int128_t res = 0; bool neg = s[0] == '-'; for (size_t i = neg ? 1 : 0; i < s.size(); ++i) res = res * 10 + (s[i] - '0'); return neg ? -res : res; }
 void in() {};
 template <class T, class... U> void in(T&& x, U &&...y) { cin >> x; in(forward<U>(y)...); }
 int print() { /*cout << '\n';*/ return 0; }
-template <class head, class... tail> int print(head&& h, tail&&... t) { cout << h << (sizeof...(t) ? ' ' : '\n'); return print(forward<tail>(t)...); }
+void print_int128(__int128_t h) { string s; bool neg = h < 0; if (neg) h = -h; do { s = char(h % 10 + '0') + s; h /= 10; } while (h); if (neg) s = '-' + s; cout << s; }
+template <class head, class... tail> int print(head&& h, tail&&... t) { if constexpr (is_same_v<decay_t<head>, __int128_t>) { print_int128(h); } else { cout << h; } cout << (sizeof...(t) ? ' ' : '\n'); return print(forward<tail>(t)...); }
 #define inll(...) ll __VA_ARGS__; in(__VA_ARGS__)
+#define inld(...) ld __VA_ARGS__; in(__VA_ARGS__)
 #define instr(...) string __VA_ARGS__; in(__VA_ARGS__)
 #define invll(vec,n) vll vec(n); rep(i, n) in(vec[i]);
 #define invs(vec,n) vs vec(n); rep(i, n) in(vec[i]);
@@ -58,28 +65,28 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
+ll prime_fac(ll N) {
+    vector<pair<ll, ll>> res;
+    rep_sqrt(i, 2, N) {
+        if (N % i == 0) {
+            ll ex = 0;
+            while (N % i == 0) {
+                ex++;
+                N /= i;
+            }
+            res.pb(mpa(i, ex));
+        }
+    }
+    // 最後に残った数
+    if (N != 1) res.push_back(mpa(N, 1));
+
+    return (ll)res.size();
+}
+
 int main()
 {
     inll(A, B);
-    ll a = A, b = B;
-    ll res = 1;
-    rep_sqrt(i, 2, max(A, B)) {
-        ll fa = 0, fb = 0;
-        if (a % i == 0) {
-            while (a % i == 0)
-                a /= i;
-            fa = 1;
-        }
-        if (b % i == 0) {
-            while (b % i == 0)
-                b /= i;
-            fb = 1;
-        }
-        if (fa && fb)
-            res++;
-    }
-    if (gcd(a, b) != 1)
-        res++;
-    print(res);
+    print(prime_fac(gcd(A, B)) + 1);
+
     return 0;
 }

@@ -65,18 +65,33 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-
-
 int main()
 {
-    inll(N);
-    instr(S);
-    ll cnt = 0;
-    rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
+    inll(H, W, N);
+    ll res = 0;
+    // ll h = H, w = W;
+    // rep(i, min(H, W)) {
+    //     res += h * w;
+    //     h--;
+    //     w--;
+    // }
+    vvll grid(H, vll(W, 0));
+    rep(N) {
+        inll(y, x);
+        y--; x--;
+        grid[y][x] = 1;
+    }
+    vvll dp(H, vll(W, 0));
+    rrep(i, H) rrep(j, W) {
+        if (!grid[i][j]) {
+            if (i < H - 1 && j < W - 1)
+                dp[i][j] = min({ dp[i + 1][j],dp[i][j + 1],dp[i + 1][j + 1] }) + 1;
+            else
+                dp[i][j] = 1;
         }
     }
+    rep(i, H) rep(j, W)
+        res += dp[i][j];
+    print(res);
     return 0;
 }

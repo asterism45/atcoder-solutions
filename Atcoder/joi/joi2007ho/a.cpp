@@ -65,18 +65,18 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-
-
 int main()
 {
-    inll(N);
-    instr(S);
-    ll cnt = 0;
+    inll(N, K);
+    invll(A, N);
+    vll s(N + 1, 0);
+    // 累積和 sが和、aが数列
     rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
-        }
+        s[i + 1] = s[i] + A[i];
     }
+    ll res = 0;
+    rep(i, N - K)
+        chmax(res, s[i + K] - s[i]);
+    print(res);
     return 0;
 }

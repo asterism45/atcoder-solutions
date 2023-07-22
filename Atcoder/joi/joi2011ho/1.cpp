@@ -55,7 +55,7 @@ template <class head, class... tail> int print(head&& h, tail&&... t) { if const
 #define instr(...) string __VA_ARGS__; in(__VA_ARGS__)
 #define invll(vec,n) vll vec(n); rep(i, n) in(vec[i]);
 #define invs(vec,n) vs vec(n); rep(i, n) in(vec[i]);
-#define invvll(vec,h,w) vvll vec(h, vll(w)); rep(i, h) rep(j, w) in(vec[i][j]);
+#define invvll(vec,h,w) vvll vec(h, vll(w)); rep(i, h) rep(o, w) in(vec[i][j]);
 #define invvc(vec,h,w) vvc vec(h, vc(w)); rep(i, h) rep(j, w) in(vec[i][j]);
 template <class T> int print(vector<T>& a, char sep = ' ') { for (auto& val : a) cout << val << (&val != &a.back() ? sep : '\n'); return 0; }
 template <class T>int print(vector<vector<T>>& a) { for (auto& row : a) print(row); return 0; }
@@ -65,18 +65,25 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-
-
 int main()
 {
-    inll(N);
-    instr(S);
-    ll cnt = 0;
-    rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
-        }
+    inll(H, W, K);
+    invvc(P, H, W);
+    vvll sj(H + 1, vll(W + 1, 0)), so(H + 1, vll(W + 1, 0));
+    rep(i, H) rep(j, W) {
+        sj[i + 1][j + 1] = sj[i + 1][j] + sj[i][j + 1] - sj[i][j];
+        so[i + 1][j + 1] = so[i + 1][j] + so[i][j + 1] - so[i][j];
+        if (P[i][j] == 'J') sj[i + 1][j + 1]++;
+        if (P[i][j] == 'O') so[i + 1][j + 1]++;
+    }
+    while (K-- > 0) {
+        inll(a, b, c, d);
+        a--; b--;
+        ll resj, reso, resi;
+        resj = sj[c][d] - sj[a][d] - sj[c][b] + sj[a][b];
+        reso = so[c][d] - so[a][d] - so[c][b] + so[a][b];
+        resi = (c - a) * (d - b) - resj - reso;
+        print(resj, reso, resi);
     }
     return 0;
 }

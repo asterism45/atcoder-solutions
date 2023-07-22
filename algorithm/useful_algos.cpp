@@ -38,7 +38,7 @@ ll cntdig(const ll& N) {
 
 // 素因数分解
 // pairのfirstが素因数、secondが指数
-vector<pair<ll, ll>> prime_fac(const ll& N) {
+vector<pair<ll, ll>> prime_factorization(const ll& N) {
     vector<pair<ll, ll>> res;
     rep_sqrt(i, 2, N) {
         if (N % i == 0) {

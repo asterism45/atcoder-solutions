@@ -65,18 +65,58 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
-
-
 int main()
 {
-    inll(N);
-    instr(S);
-    ll cnt = 0;
-    rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
+    inll(H, W);
+    invvc(S, H, W);
+    vvll dist(H, vll(W, -1));
+    queue<pair<pair<ll, ll>, pair<ll, ll>>> que;
+
+    dist[1][1] = 2;
+    que.push(mpa(mpa(1, 1), mpa(0, 0)));
+
+    while (!que.empty())
+    {
+        pair<ll, ll> yx;
+        yx = que.front().first;
+        pair<ll, ll> p = que.front().second;
+        que.pop();
+        ll t = -1;
+        if (p.first == 1 && p.second == 0) t = 1;
+        if (p.first == -1 && p.second == 0)t = 0;
+        if (p.first == 0 && p.second == 1) t = 3;
+        if (p.first == 0 && p.second == -1)t = 2;
+
+        rep(i, 4)
+        {
+            if (i == t) continue;
+            ll next_y = yx.first + dy[i], next_x = yx.second + dx[i];
+            if (inrange(H, W, next_y, next_x))
+            {
+                if (S[next_y][next_x] == '#' || dist[next_y][next_x] == 2)
+                    continue;
+                while (S[next_y][next_x] != '#') {
+                    if (S[next_y][next_x] != '#' && dist[next_y][next_x] != 2)
+                        dist[next_y][next_x] = 1;
+                    next_y += dy[i];
+                    next_x += dx[i];
+                }
+                next_y -= dy[i];
+                next_x -= dx[i];
+                if (dist[next_y][next_x] != 2) {
+                    dist[next_y][next_x] = 2;
+                    que.push(mpa(mpa(next_y, next_x), mpa(dy[i], dx[i])));
+                }
+            }
         }
     }
+
+    ll res = 0;
+    rep(i, H) rep(j, W) {
+        if (dist[i][j] >= 1) res++;
+    }
+    // print(dist);
+    print(res);
+
     return 0;
 }

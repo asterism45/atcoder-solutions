@@ -41,3 +41,16 @@ int main()
 
     return 0;
 }
+
+vll sieveOfEratosthenes(ll N) {
+    // f[i] == 1 なら素数
+    vll f(N + 1, 1);
+    // エラトステネスの篩
+    for (ll i = 2; i * i <= N; i++)
+    {
+        if (!f[i])continue;
+        for (ll j = i * 2;j <= N;j += i)
+            f[j] = 0;
+    }
+    return f;
+}

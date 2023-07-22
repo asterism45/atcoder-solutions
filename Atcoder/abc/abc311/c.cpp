@@ -65,18 +65,54 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 /*cout << fixed << setprecision(15); for double*/
 #pragma endregion header
 
+bool visited[300001];
+ll parent[300001];
+vector<ll> cycle;
 
+bool dfs(ll v, ll p, vvll& G) {
+    visited[v] = true;
+    parent[v] = p;
+    for (auto u : G[v]) {
+        if (!visited[u]) {
+            if (dfs(u, v, G)) return 1;
+        }
+        else if (visited[u]) {
+            for (ll cur = v; cur != u; cur = parent[cur])
+                cycle.push_back(cur);
+            cycle.push_back(u);
+            cycle.push_back(v);
+            return true;
+        }
+    }
+    visited[v] = 2;
+    return false;
+}
+
+
+void find_cycle(ll n, vvll& G) {
+    memset(visited, false, sizeof visited);
+    rep(v, 1, n + 1) {
+        if (!visited[v] && dfs(v, -1, G)) {
+            print(cycle.size() - 1);
+            reverse(all(cycle));
+            cycle.pop_back();
+            for (auto x : cycle) {
+                cout << x << " ";
+            }
+            cout << endl;
+            return;
+        }
+    }
+}
 
 int main()
 {
     inll(N);
-    instr(S);
-    ll cnt = 0;
-    rep(i, N) {
-        if (S[i] == '0') cnt++;
-        else {
-            if (cnt > 1)
-        }
+    vvll G(N + 1);
+    rep(i, 1, N + 1) {
+        inll(A);
+        G[i].pb(A);
     }
+    find_cycle(N, G);
     return 0;
 }
