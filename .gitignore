@@ -1,6 +1,4 @@
 .vscode/
-testplace.cpp
 *.exe
 Atcoder/onlinejudge/*
 *.out
-*.sh
