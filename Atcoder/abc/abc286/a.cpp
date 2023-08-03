@@ -68,23 +68,35 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 int main()
 {
     inll(N, P, Q, R, S);
-    P--; Q--; R--; S--;
-    ll n = P - Q;
-    vll A, B, C;
+    P--;Q--;R--;S--;
+    vll A, B, C, D, E;
     rep(i, N) {
         if (i < P) {
-            inll(p);
-            A.pb(p);
+            inll(x);
+            A.pb(x);
         }
-        if (i < P) {
-            inll(p);
-            A.pb(p);
+        else if (P <= i && i <= Q) {
+            inll(x);
+            B.pb(x);
         }
-        if (i < P) {
-            inll(p);
-            A.pb(p);
+        else if (Q < i && i < R) {
+            inll(x);
+            C.pb(x);
         }
-
+        else if (R <= i && i <= S) {
+            inll(x);
+            D.pb(x);
+        }
+        else {
+            inll(x);
+            E.pb(x);
+        }
     }
+    for (auto p : A) cout << p << " ";
+    for (auto p : D) cout << p << " ";
+    for (auto p : C) cout << p << " ";
+    for (auto p : B) cout << p << " ";
+    for (auto p : E) cout << p << " ";
+    cout << endl;
     return 0;
 }
