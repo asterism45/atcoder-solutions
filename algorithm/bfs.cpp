@@ -17,7 +17,6 @@ int main() {
         G[b].push_back(a);
     }
 
-    // BFS のためのデータ構造
     vll dist(N + 1, -1); // 全頂点を「未訪問」に初期化
     queue<ll> que;
 
