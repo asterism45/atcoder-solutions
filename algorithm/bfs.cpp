@@ -18,23 +18,20 @@ int main() {
     }
 
     // BFS のためのデータ構造
-    vector<int> dist(N, -1); // 全頂点を「未訪問」に初期化
-    queue<int> que;
+    vll dist(N + 1, -1); // 全頂点を「未訪問」に初期化
+    queue<ll> que;
 
-    // 初期条件 (頂点 0 を初期ノードとする)
-    dist[0] = 0;
-    que.push(0); // 0 を橙色頂点にする
+    // 初期条件 (頂点 1 を初期ノードとする)
+    dist[1] = 0;
+    que.push(1);
 
-    // BFS 開始 (キューが空になるまで探索を行う)
     while (!que.empty()) {
-        int v = que.front(); // キューから先頭頂点を取り出す
+        ll v = que.front(); // キューから先頭頂点を取り出す
         que.pop();
 
-        // v から辿れる頂点をすべて調べる
-        for (int nv : G[v]) {
+        for (auto nv : G[v]) {
             if (dist[nv] != -1) continue; // すでに発見済みの頂点は探索しない
 
-            // 新たな白色頂点 nv について距離情報を更新してキューに追加する
             dist[nv] = dist[v] + 1;
             que.push(nv);
         }

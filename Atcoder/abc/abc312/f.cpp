@@ -39,7 +39,8 @@ bool inrange(ll H, ll W, ll y, ll x) { return 0 <= y && y < H && 0 <= x && x < W
 ll gcd(ll a, ll b) { return (a % b == 0) ? b : gcd(b, a % b); }
 void Yes(bool flag) { cout << (flag ? "Yes" : "No") << endl; }
 void YES(bool flag) { cout << (flag ? "YES" : "NO") << endl; }
-bool comp(int a, int b) { return a > b; } //降順
+bool comp1(ll a, ll b) { return a > b; } //降順
+bool comp2(pair<ll, ll> a, pair<ll, ll> b) { return a.first > b.first; } //降順
 template<class T> bool chmin(T& a, const T& b) { if (a > b) { a = b; return 1; } return 0; }
 template<class T> bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T, class U> bool chmin(T& a, const U& b) { if (a > T(b)) { a = b; return 1; } return 0; }
@@ -68,9 +69,31 @@ template <class T> int print(multiset<T>& ms, char sep = ' ') { for (auto& val :
 int main()
 {
     inll(N, M);
-    vector<vvll> dp(N, vvll(M + 1, vll(M + 1, 0)));
-    rep(i,N){
-        
+    vll cut;
+    vpll can;
+    rep(i, N) {
+        inll(T, X);
+        if (T == 0) can.pb(mpa(X, 0));
+        else if (T == 1) can.pb(mpa(X, 1));
+        else cut.pb(X);
     }
+    sort(all(cut), comp1);
+    sort(all(can), comp2);
+    vll Scut(N + 1, 0);
+    vpll Scan(N + 1, mpa(0, 0));
+    rep(i, cut.size()) {
+        Scut[i + 1] += Scut[i] + cut[i];
+    }
+    rep(i, can.size()) {
+        Scan[i + 1].first = Scan[i].first + can[i].first;
+        Scan[i + 1].second = Scan[i].second + can[i].second;
+    }
+    ll res = 0;
+    rep(i, M + 1) {
+        if (Scan[i].second <= Scut[M - i]) {
+            chmax(res, Scan[i].first);
+        }
+    }
+    print(res);
     return 0;
 }
