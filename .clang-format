@@ -1,8 +1,0 @@
-SortIncludes: false
-AllowShortBlocksOnASingleLine: true
-AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: true
-AllowShortLoopsOnASingleLine: true
-ColumnLimit: 0
-AllowShortCaseLabelsOnASingleLine: true
-AlignOperands: true

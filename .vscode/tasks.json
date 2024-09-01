@@ -1,0 +1,166 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "c++ build for AtCoder",
+            "type": "shell",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "g++",
+            "args": [
+                "-I",
+                "${workspaceFolder}/ac-library/",
+                "-g",
+                "-O0",
+                "-Wall",
+                "-Wextra",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/a.out"
+            ],
+            "group": "build"
+        }
+    ]
+}
+
+
+
+// {
+//     "version": "2.0.0",
+//     "tasks": [
+//         {
+//             "label": "build",
+//             "type": "shell",
+//             "command": "g++",
+//             "args": [
+//                 "-g",
+//                 "-std=c++17",
+//                 "${file}",
+//                 "-I/home/asterism/ac-library",
+//                 "-o",
+//                 "${fileDirname}/${fileBasenameNoExtension}"
+//             ],
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             }
+//         },
+//         {
+//             "label": "test_atcoder_sample",
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": false
+//             },
+//             "type": "shell",
+//             "command": "bash",
+//             "args": [
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/cptest.sh",
+//                 "${relativeFileDirname}_${fileBasenameNoExtension}",
+//                 "${file}",
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/gen.py",  // generator path
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/sol.cpp",  // solver path
+//                 "test"
+//             ],
+//             "options": {
+//                 "cwd": "${workspaceFolder}"
+//             },
+//             "presentation": {
+//                 "echo": true,
+//                 "reveal": "always",
+//                 "focus": true,
+//                 "panel": "shared",
+//                 "showReuseMessage": true,
+//                 "clear": false
+//             }
+//         },
+//         {
+//             "label": "submit_atcoder_sample",
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": false
+//             },
+//             "type": "shell",
+//             "command": "bash",
+//             "args": [
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/cptest.sh",
+//                 "${relativeFileDirname}_${fileBasenameNoExtension}",
+//                 "${file}",
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/gen.py",  // generator path
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/sol.cpp",  // solver path
+//                 "submit"
+//             ],
+//             "options": {
+//                 "cwd": "${workspaceFolder}"
+//             },
+//             "presentation": {
+//                 "echo": true,
+//                 "reveal": "always",
+//                 "focus": true,
+//                 "panel": "shared",
+//                 "showReuseMessage": true,
+//                 "clear": false
+//             }
+//         },
+//         {
+//             "type": "cppbuild",
+//             "label": "C/C++: g++ アクティブなファイルのビルド",
+//             "command": "/usr/bin/g++",
+//             "args": [
+//                 "-fdiagnostics-color=always",
+//                 "-g",
+//                 "${file}",
+//                 "-o",
+//                 "${fileDirname}/${fileBasenameNoExtension}"
+//             ],
+//             "options": {
+//                 "cwd": "${fileDirname}"
+//             },
+//             "problemMatcher": [
+//                 "$gcc"
+//             ],
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             },
+//             "detail": "デバッガーによって生成されたタスク。"
+//         },
+//         {
+//             "label": "gen-sol_atcoder_sample",
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": false
+//             },
+//             "type": "shell",
+//             "command": "bash",
+//             "args": [
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/cptest.sh",
+//                 "${relativeFileDirname}_${fileBasenameNoExtension}",
+//                 "${file}",
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/gen.py",  // generator path
+//                 "/home/asterism/atcoder/Atcoder/onlinejudge/sol.cpp",  // solver path
+//                 "gen-sol"
+//             ],
+//             "options": {
+//                 "cwd": "${workspaceFolder}"
+//             },
+//             "presentation": {
+//                 "echo": true,
+//                 "reveal": "always",
+//                 "focus": true,
+//                 "panel": "shared",
+//                 "showReuseMessage": true,
+//                 "clear": false
+//             }
+//         },
+//         {
+//             "label": "icpc_build",
+//             "type": "shell",
+//             "command": "g++ ${file} -g -std=c++17 -o ${fileBasenameNoExtension}.out && ./${fileBasenameNoExtension}.out < ${fileDirname}/input > ${fileDirname}/output",
+//             "group": {
+//                 "kind": "build",
+//                 "isDefault": true
+//             }
+//         },
+//     ]
+// }

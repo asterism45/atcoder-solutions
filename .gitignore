@@ -1,4 +1,10 @@
-.vscode/
-*.exe
-Atcoder/onlinejudge/*
+archive/
+.vscode/**
+!c_cpp_properties.json
+!launch.json
+!tasks.json
+
+ac-library/**
+
+*.in
 *.out
